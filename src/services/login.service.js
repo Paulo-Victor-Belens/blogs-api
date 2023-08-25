@@ -2,7 +2,6 @@ const { createToken } = require('../auth/authfunction');
 const { User } = require('../models');
 
 const loginPostService = async (email, password) => {
-  console.log('loginPostService', email, password);
   if (!email || !password) {
     return { status: 'NOT_FOUND_2', data: { message: 'Some required fields are missing' } };
   }
