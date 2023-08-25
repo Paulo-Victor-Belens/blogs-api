@@ -12,7 +12,14 @@ const userGetAll = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const userGetById = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await userService.userGetByIdService(id);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   userPostCreate,
   userGetAll,
+  userGetById,
 };
