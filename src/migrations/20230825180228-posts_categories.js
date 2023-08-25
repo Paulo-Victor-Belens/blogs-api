@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.createTable(
       'posts_categories', {
         post_id: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.INTEGER,
           references: {
             model: 'blog_posts',
@@ -15,7 +15,7 @@ module.exports = {
           onDelete: 'CASCADE',
         },
         category_id: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.INTEGER,
           references: {
             model: 'categories',

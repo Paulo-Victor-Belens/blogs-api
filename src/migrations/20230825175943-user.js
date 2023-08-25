@@ -5,26 +5,26 @@ module.exports = {
     await queryInterface.createTable(
       'users', {
         id: {
-          allwNull: false,
+          allowNull: false,
           autoIncrement: true,
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
         display_name: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.STRING,
         },
         email: {
-          allwNull: false,
+          allowNull: false,
           unique: true,
           type: Sequelize.STRING,
         },
         password: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.STRING,
         },
         image: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.STRING,
         }
       }

@@ -5,21 +5,21 @@ module.exports = {
     await queryInterface.createTable(
       'blog_posts', {
         id: {
-          allwNull: false,
+          allowNull: false,
           autoIncrement: true,
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
         title: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.STRING,
         },
         content: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.STRING,
         },
         user_id: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.INTEGER,
           references: {
             model: 'users',
@@ -29,11 +29,11 @@ module.exports = {
           onDelete: 'CASCADE',
         },
         published: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.DATE,
         },
         updated: {
-          allwNull: false,
+          allowNull: false,
           type: Sequelize.DATE,
         },
       }
