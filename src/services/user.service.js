@@ -6,7 +6,6 @@ const userPostService = async (displayName, email, password, image) => {
 { where: { email },
   defaults: { displayName, email, password, image }, 
 },
-
 );
 
   if (!created) {
@@ -20,6 +19,13 @@ const userPostService = async (displayName, email, password, image) => {
   return { status: 'CREATED', data: { token } };
 };
 
+const userGetAllService = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
+
+  return { status: 'SUCCESSFUL', data: users };
+};
+
 module.exports = {
   userPostService,
+  userGetAllService,
 };

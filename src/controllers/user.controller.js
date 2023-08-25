@@ -7,6 +7,12 @@ const userPostCreate = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const userGetAll = async (req, res) => {
+  const { status, data } = await userService.userGetAllService();
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   userPostCreate,
+  userGetAll,
 };
