@@ -7,6 +7,12 @@ const categoryPostCreate = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const categoryGetAll = async (req, res) => {
+  const { status, data } = await categoriesService.categoryGetAllService();
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   categoryPostCreate,
+  categoryGetAll,
 };

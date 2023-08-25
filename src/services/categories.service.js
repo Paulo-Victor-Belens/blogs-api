@@ -9,6 +9,13 @@ const categoryPostService = async (name) => {
   return { status: 'CREATED', data: { id, name } };
 };
 
+const categoryGetAllService = async () => {
+  const categories = await Category.findAll();
+
+  return { status: 'SUCCESSFUL', data: categories };
+};
+
 module.exports = {
   categoryPostService,
+  categoryGetAllService,
 };
