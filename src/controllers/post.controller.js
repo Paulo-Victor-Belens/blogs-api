@@ -27,9 +27,20 @@ const postUpdate = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const postDelete = async (req, res) => {
+  const { id } = req.params;
+  const { payload: { data: { id: userId } } } = req;
+  const { status, data } = await postService.postDeleteService(id, userId);
+  if (!data) {
+    return res.status(mapStatusHTTP(status)).end();
+  }
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   postCreate,
   postGetAll,
   postGetById,
   postUpdate,
+  postDelete,
 };

@@ -6,6 +6,7 @@ const postValidationUpdate = require('../middlewares/postCategoryUpdateValidatio
 
 const router = express.Router();
 
+router.delete('/:id', tokenValidation, PostController.postDelete);
 router.put('/:id', tokenValidation, postValidationUpdate, PostController.postUpdate);
 router.get('/:id', tokenValidation, PostController.postGetById);
 router.get('/', tokenValidation, PostController.postGetAll);
