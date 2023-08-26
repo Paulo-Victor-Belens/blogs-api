@@ -2,7 +2,7 @@ const { Op } = require('sequelize');
 const { PostCategory, BlogPost, Category, User } = require('../models');
 
 const categoryPostService = async (title, content, categoryIds, userId) => {
-  const isCategory = categoryIds.map(async (categoryId) => Category.findByPk(categoryId));
+  const isCategory = categoryIds.map((categoryId) => Category.findByPk(categoryId));
 
   if ((await Promise.all(isCategory)).some((category) => category === null)) {
     return { status: 'NOT_FOUND_2', data: { message: 'one or more "categoryIds" not found' } };
@@ -21,7 +21,7 @@ const categoryPostService = async (title, content, categoryIds, userId) => {
 
   const post = await BlogPost.findByPk(id);
 
-  return { status: 'CREATED', data: { ...post.dataValues } };
+  return { status: 'CREATED', data: post };
 };
 
 const postGetAllService = async () => {
