@@ -5,6 +5,7 @@ const postValidation = require('../middlewares/postCategoryValidation');
 
 const router = express.Router();
 
+router.get('/:id', tokenValidation, PostController.postGetById);
 router.get('/', tokenValidation, PostController.postGetAll);
 router.post('/', tokenValidation, postValidation, PostController.postCreate);
 
