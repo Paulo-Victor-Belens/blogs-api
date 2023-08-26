@@ -18,8 +18,18 @@ const userGetById = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const userDelete = async (req, res) => {
+  const { payload: { data: { id: userId } } } = req;
+  const { status, data } = await userService.userDeleteService(userId);
+  if (!data) {
+    return res.status(mapStatusHTTP(status)).end();
+  }
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   userPostCreate,
   userGetAll,
   userGetById,
+  userDelete,
 };

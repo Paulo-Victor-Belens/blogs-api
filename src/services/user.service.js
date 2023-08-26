@@ -35,8 +35,24 @@ const userGetByIdService = async (id) => {
   return { status: 'SUCCESSFUL', data: user };
 };
 
+const userDeleteService = async (userId) => {
+  const user = await User.findByPk(userId);
+
+  if (!user) {
+    return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
+  }
+
+  if (user.id !== userId) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Unauthorized user' } };
+  }
+
+  await User.destroy({ where: { id: userId } });
+  return { status: 'DELETED' };
+};
+
 module.exports = {
   userPostService,
   userGetAllService,
   userGetByIdService,
+  userDeleteService,
 };
