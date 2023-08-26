@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { PostCategory, BlogPost, Category, User } = require('../models');
 
 const categoryPostService = async (title, content, categoryIds, userId) => {
@@ -72,10 +73,29 @@ const postDeleteService = async (id, userId) => {
   return { status: 'DELETED' };
 };
 
+const postSearchService = async (searchTerm) => {
+  console.log(searchTerm);
+  if (!searchTerm) return postGetAllService();
+  const posts = await BlogPost.findAll({
+    where: { [Op.or]: [
+      { title: { [Op.like]: `%${searchTerm}%` } },
+      { content: { [Op.like]: `%${searchTerm}%` } },
+    ] },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories' },
+    ],
+  });
+
+  if (!posts.length) return { status: 'SUCCESSFUL', data: [] };
+  return { status: 'SUCCESSFUL', data: posts };
+};
+
 module.exports = {
   categoryPostService,
   postGetAllService,
   postGetByIdService,
   postUpdateService,
   postDeleteService,
+  postSearchService,
 };

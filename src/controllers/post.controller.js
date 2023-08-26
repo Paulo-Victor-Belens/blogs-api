@@ -37,10 +37,17 @@ const postDelete = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const postSearch = async (req, res) => {
+  const { q } = req.query;
+  const { status, data } = await postService.postSearchService(q);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   postCreate,
   postGetAll,
   postGetById,
   postUpdate,
   postDelete,
+  postSearch,
 };
