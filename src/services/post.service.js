@@ -3,7 +3,7 @@ const { PostCategory, BlogPost, Category, User } = require('../models');
 
 const categoryPostService = async (title, content, categoryIds, userId) => {
   const isCategory = categoryIds.map((categoryId) => Category.findByPk(categoryId));
-
+  console.log(await Promise.all(isCategory));
   if ((await Promise.all(isCategory)).some((category) => category === null)) {
     return { status: 'NOT_FOUND_2', data: { message: 'one or more "categoryIds" not found' } };
   }
@@ -28,7 +28,7 @@ const postGetAllService = async () => {
   const posts = await BlogPost.findAll({
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
   return { status: 'SUCCESSFUL', data: posts };
@@ -38,7 +38,7 @@ const postGetByIdService = async (id) => {
   const post = await BlogPost.findByPk(id, {
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
   if (!post) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
@@ -56,7 +56,7 @@ const postUpdateService = async (title, content, id, userId) => {
   const post = await BlogPost.findByPk(id, {
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
-      { model: Category, as: 'categories' },
+      { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
   return { status: 'SUCCESSFUL', data: post };
@@ -73,7 +73,6 @@ const postDeleteService = async (id, userId) => {
 };
 
 const postSearchService = async (searchTerm) => {
-  console.log(searchTerm);
   if (!searchTerm) return postGetAllService();
   const posts = await BlogPost.findAll({
     where: { [Op.or]: [

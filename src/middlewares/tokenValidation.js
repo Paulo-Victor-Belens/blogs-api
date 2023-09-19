@@ -6,7 +6,7 @@ const tokenValidation = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: 'Token not found' });
     }
-    const newToken = token.split(' ')[1];
+    const [, newToken] = token.split(' ');
     const payload = getPayload(newToken);
     req.payload = payload;
     next();
